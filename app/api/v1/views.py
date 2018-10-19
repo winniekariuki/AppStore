@@ -67,5 +67,32 @@ class UserAccount(Resource):
                     "Message": "Post Success",
                     "UserAccount": users
                 }), 201)
+class LoginUsers(Resource):
+    def post(self):
+        # print(users)
+        data = request.get_json()
+        username = data["username"]
+        password = data["password"]
 
+
+        if not data or not username or not password:
+            return make_response(jsonify({
+                                         'Status': 'Failed',
+                                         'Message': "Login!!"
+                                         }), 400)
+
+        for user in users:
+            if user['username'] == username and user['password'] == password:
+                token = jwt.encode({'username': user['username'],
+                                    'exp': datetime.datetime.utcnow() +
+                                    datetime.timedelta(minutes=30)},
+                                    app.config['SECRET_KEY'])
+                return make_response(jsonify({
+                                             'token': token.decode('UTF-8')
+                                             }), 200)
+
+        return make_response(jsonify({
+                'Status': 'Failed',
+                'Message': "No such user found"
+                }), 404)
 
