@@ -177,3 +177,25 @@ class SaleRecords(Resource):
                                     "Message":"Post Success",
                                     "MySaleRecords":sale_records
                                 }),201)
+class SingleSaleRecord(Resource):
+        @token_required
+        def get(user_data,self,saleID):
+            
+            for sale in sale_records:
+                if user_data["role"] != 'Admin' or user_data["id"] != StoreAttendant_id:
+                    return make_response(jsonify({
+                        "message":"Not authorized"
+                         }) ,401)
+            for sale in sale_records:
+                if sale['sale_id'] == int(saleID):
+                    return make_response(jsonify({
+                                "Status":"Ok",
+                                "Message":"Success",
+                                "MySaleRecords":sale
+
+                                }),200)
+            
+def clear_data():
+    products.clear()
+    sale_records.clear()
+    users.clear()  
