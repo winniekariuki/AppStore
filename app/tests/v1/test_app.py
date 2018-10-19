@@ -101,5 +101,8 @@ class TestProducts(unittest.TestCase):
 
         response=self.test_client.get('api/v1/products',content_type='application/json')
         self.assertEqual(response.status_code,200)
+    def  test_get_single_products(self):
         
+        response=self.test_client.get('api/v1/products/1',content_type='application/json')
+        self.assertEqual(response.status_code,200)   
     
