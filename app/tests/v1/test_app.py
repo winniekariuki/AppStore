@@ -112,3 +112,13 @@ class TestProducts(unittest.TestCase):
     def test_post_sales(self):
         response=self.test_client.post('api/v1/sales',data=self.sale_data,headers={'content_type':'application/json','access-token':self.storeattendant_token["token"]})
         self.assertEqual(response.status_code,201)
+    def test_get_single_sales(self):
+
+        response=self.test_client.get('api/v1/sales/1',headers={'content_type':'application/json','access-token':self.admin_token["token"]})
+
+        self.assertEqual(response.status_code,200)
+    def test_get_single_sales(self):
+
+        response=self.test_client.get('api/v1/sales/1',headers={'content_type':'application/json','access-token':self.storeattendant_token["token"]})
+        
+        self.assertEqual(response.status_code,200)
