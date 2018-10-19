@@ -108,5 +108,5 @@ class TestProducts(unittest.TestCase):
     def test_get_sales(self):
 
         response=self.test_client.get('api/v1/sales',headers={'content_type':'application/json','access-token':self.admin_token["token"]})
-        self.assertEqual(response.status_code,200)    
+        self.assertEqual(response.status_code,200) 
     
