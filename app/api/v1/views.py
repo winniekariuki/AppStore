@@ -95,4 +95,30 @@ class LoginUsers(Resource):
                 'Status': 'Failed',
                 'Message': "No such user found"
                 }), 404)
+class Products(Resource):
+    @token_required
+    def post(user_data,self):
+        if user_data == "Admin":
+           return make_response(jsonify({
+                "message":"Not authorized"
+                }) ,401)
 
+        id = len(products) + 1
+        data = request.get_json()
+        name = data["name"]
+        model_no = data["model_no"]
+        price = data["price"]
+
+        item = {
+                'id': id,
+                'name': name,
+                'model_no': model_no,
+                'price': price
+        }
+
+        products.append(item)
+        return make_response(jsonify({
+                    "Status": "Ok",
+                    "Message": "Post Success",
+                    "MyProducts": products
+                }), 201)
