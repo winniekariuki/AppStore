@@ -156,24 +156,24 @@ class SaleRecords(Resource):
 
                         }),200)
     @token_required   
-        def post(user_data,self):
+    def post(user_data,self):
 
-            if user_data["role"] != "storeattendant":
+        if user_data["role"] != "storeattendant":
+           return make_response(jsonify({
+                "message":"Not authorized"
+                }) ,401)       
+        data=request.get_json()
+        for product in products:
+            if product['id'] == data:
+                sale = {
+                        'sale_id':len(sale_records)+1,
+                        'sale':product,
+                        'StoreAttendant_id':user_data["id"]
+                        
+                        }
+                sale_records.append(sale)
             return make_response(jsonify({
-                    "message":"Not authorized"
-                    }) ,401)       
-            data=request.get_json()
-            for product in products:
-                if product['id'] == data["id"]:
-                    sale = {
-                            'sale_id':len(sale_records)+1,
-                            'sale':product,
-                            'StoreAttendant_id':user_data["id"]
-                            
-                            }
-                    sale_records.append(sale)
-                return make_response(jsonify({
-                                        "Status":"Created",
-                                        "Message":"Post Success",
-                                        "MySaleRecords":sale_records
-                                    }),201)
+                                    "Status":"Created",
+                                    "Message":"Post Success",
+                                    "MySaleRecords":sale_records
+                                }),201)
