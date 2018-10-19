@@ -122,3 +122,11 @@ class Products(Resource):
                     "Message": "Post Success",
                     "MyProducts": products
                 }), 201)
+    def get(self):
+        return make_response(jsonify({
+
+            "Status": "Ok",
+            "Message": "Success",
+            "MyProducts": products
+
+            }), 200)          
