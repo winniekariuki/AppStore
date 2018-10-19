@@ -129,4 +129,15 @@ class Products(Resource):
             "Message": "Success",
             "MyProducts": products
 
-            }), 200)          
+            }), 200) 
+class SingleProduct(Resource):
+        def get(self, productID):
+
+            for product in products:
+                if product["id"] == int(productID):
+                    return make_response(jsonify({
+                        "Status": "Ok",
+                        "Message": "Success",
+                        "MyProducts": product
+
+                        }), 200)                     
