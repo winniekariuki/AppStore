@@ -78,5 +78,13 @@ class TestProducts(unittest.TestCase):
         response=self.test_client.post('/api/v1/users',data=user,content_type='application/json')
         
         self.assertEqual(response.status_code,201)
+    def test_login(self):
+        login = json.dumps({
+                "username":"winnie",
+                "password":"1234"
+                 })
+        response=self.test_client.post('/api/v1/login',data=login,content_type='application/json')
+        
+        self.assertEqual(response.status_code,200)
 
     
