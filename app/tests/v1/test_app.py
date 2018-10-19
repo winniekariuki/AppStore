@@ -97,5 +97,9 @@ class TestProducts(unittest.TestCase):
         
         response=self.test_client.post('api/v1/products',data=data2,headers={'content-type':'application/json','access-token':self.admin_token["token"]})
         self.assertEqual(response.status_code,201)
+    def test_get_products(self):
 
+        response=self.test_client.get('api/v1/products',content_type='application/json')
+        self.assertEqual(response.status_code,200)
+        
     
