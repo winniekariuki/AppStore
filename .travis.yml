@@ -6,7 +6,7 @@ install:
 before_script:
  - export SECRET_KEY="secret"
 script:
-- pytest
-- pytest --cov=app
+- pytest -v -W error::UserWarning
+- coverage run --source=app -m pytest && coverage report
 after_success:
 - coveralls
